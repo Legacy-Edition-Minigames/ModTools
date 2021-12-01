@@ -3,6 +3,8 @@
 execute as @e[type=bat,tag=spawncenterchest] at @s run function leb-builder:spawn/chest/center
 #Standard
 execute as @e[type=bat,tag=spawncstandardchest] at @s run function leb-builder:spawn/chest/standard
+#Powerful
+execute as @e[type=bat,tag=spawnpowerfulchest] at @s run function leb-builder:spawn/chest/powerful
 
 ##Spawnpoints
 #Random

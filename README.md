@@ -7,4 +7,4 @@ When using the datapack, please use 1.17.1, not 1.18, it may be a while until LE
 
 ### Credits
 
-Helping me with getting lebmeta.txt to save - [Symmetry System](https://github.com/OsricSystem)
+Helping me with cleaning up code - [Symmetry System](https://github.com/OsricSystem)

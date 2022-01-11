@@ -1,5 +1,5 @@
-# LEB-Builder
-Custom map installation tool for LEB
+# LEB-ModTools
+Custom map creation & installation tool for LEB
 
 Work in Progress Custom map creation & installation tool for LEB
 

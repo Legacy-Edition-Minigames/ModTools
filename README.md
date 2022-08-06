@@ -8,3 +8,7 @@ When using the datapack, please use 1.18.2, not 1.19, it may be a while until LE
 ### Credits
 
 Helping me with cleaning up code - [Symmetry System](https://github.com/OsricSystem)
+
+Helping out with JSON parsing for grabbing the map ID - [Leah](https://github.com/Just-Leah)
+
+Helping with accounting for loading maps with disabled map types - [Kyrptonaught](https://github.com/kyrptonaught)

@@ -71,28 +71,41 @@ for i in range(3):
 world_folder,map_name,map_desc=meta_input
 
 ##Find if small/large or just one type
-has_large=None
-while has_large not in ("y", "n", True, False):
-    has_large=input("Does your map have a small and large variant or just one variant? y/n: ")
-    if has_large=="y":
-        has_large=True
+multi_variant=None
+while multi_variant not in ("y", "n", True, False):
+    multi_variant=input("Does your map have a small and large variant or just one variant? y/n: ")
+    if multi_variant=="y":
+        multi_variant=True
         print("Set map to have multiple variants\n")
-    elif has_large=="n":
-        has_large=False
+    elif multi_variant=="n":
+        multi_variant=False
+        has_small = False
+        has_large = False
         print("Set map to have one variant\n")
     else:
         print("Invalid answer given\n")
 
-if has_large:
-    is_small=None
-    while is_small not in ("y", "n", True, False):
-        is_small=input("Is this map small? y/n: ")
-        if is_small=="y":
-            is_small=True
+if multi_variant:
+    has_small=None
+    while has_small not in ("y", "n", True, False):
+        has_small=input("Does this map have a small variant? y/n: ")
+        if has_small=="y":
+            has_small=True
             print("Set map to small\n")
-        elif is_small=="n":
-            is_small=False
+        elif has_small=="n":
+            has_small=False
             print("Set map to not small\n")
+        else:
+            print("Invalid answer given\n")
+    has_large=None
+    while has_large not in ("y", "n", True, False):
+        has_large=input("Does this map have a large variant? y/n: ")
+        if has_large=="y":
+            has_large=True
+            print("Set map to large\n")
+        elif has_large=="n":
+            has_large=False
+            print("Set map to not large\n")
         else:
             print("Invalid answer given\n")
 
@@ -104,7 +117,12 @@ except OSError:
 
 def write_meta():
     lebmeta=open("mod/lebmeta.txt","a")
-    lebmeta.write("has_large == "+str(has_large))
+    lebmeta.write("map_name = \""+str(map_name)+"\"")
+    lebmeta.write("\nmap_desc = \""+str(map_desc)+"\"")
+    lebmeta.write("\nmulti_variant = "+str(multi_variant))
+    lebmeta.write("\nhas_small = "+str(has_small))
+    lebmeta.write("\nhas_large = "+str(has_large))
+    #lebmeta.write("\nhas_largeplus = "+str(has_largeplus))
     lebmeta.close
 
 ##Compile it

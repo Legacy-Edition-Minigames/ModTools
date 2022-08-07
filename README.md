@@ -7,6 +7,8 @@ When using the datapack, please use 1.18.2, not 1.19, it may be a while until LE
 
 ### Credits
 
+LEB ModTools project - [Emmie](https://github.com/DBTDerpbox)
+
 Helping me with cleaning up code - [Symmetry System](https://github.com/OsricSystem)
 
 Helping out with JSON parsing for grabbing the map ID - [Leah](https://github.com/Just-Leah)

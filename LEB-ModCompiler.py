@@ -1,6 +1,7 @@
-from zipfile import ZipFile
+import json
 import os
 import shutil
+from zipfile import ZipFile
 
 def get_all_file_paths(directory):
   
@@ -18,10 +19,10 @@ def get_all_file_paths(directory):
     return file_paths
 
 ##Remove unused data function
-#Set error message
-rmerror="Error was thrown, but it was most likely just a file/folder not existing"
 #Delete directory
 def del_item(rmitem):
+    #Set error message
+    rmerror=rmitem+" cannot be found! Skipping.."
     try:
         shutil.rmtree(rmitem)
     except (FileNotFoundError,NotADirectoryError):
@@ -30,21 +31,52 @@ def del_item(rmitem):
         except FileNotFoundError:
             print(rmerror)
 
-def compile_mod():
-    ##Copy files to mod folder
-    shutil.copytree(world_folder,"mod/world")
+def load_mod_config():
+    ##Load mod config
+    global modconfig
+    with open('src/lebmod.json', 'r') as modconfigfile:
+        modconfig = json.load(modconfigfile)
+    #Create spaceless mod name variable
+    global modnameSpaceless
+    modnameSpaceless = str(modconfig['name']).replace(' ', '-')
+    #Create mod ID variable
+    global modID
+    modID = str(modconfig['id'])
+    print("Loaded config for mod "+str(modconfig['name']))
 
-    # path to folder which needs to be compiled
-    directory="mod"
-
+def rm_unused(directory):
     ##Remove unused data
     #Delete files and folders
     list=["advancements","DIM1","DIM-1","datapacks","dimensions","playerdata","scripts","stats","icon.png","level.dat","level.dat_old","session.lock"]
     for item in list:
-        del_item("mod/world/"+item)
+        del_item(directory+"/"+item)
+
+def compile_mod():
+    ##path to folder which needs to be compiled
+    directory="4j.modtools-temp"
+
+    ##Copy files to temp folder
+    shutil.copytree("src",directory)
+
+    ##Remove unused data
+    if modconfig['hassmall']:
+        print("Cleaning up unused files for Small map type")
+        rm_unused(directory+"/world/small")
+    if modconfig['haslarge']:
+        print("Cleaning up unused files for Large map type")
+        rm_unused(directory+"/world/large")
+    if modconfig['haslargeplus']:
+        print("Cleaning up unused files for Large+ map type")
+        rm_unused(directory+"/world/largeplus")
+    if modconfig['hasremastered']:
+        print("Cleaning up unused files for Remastered map type")
+        rm_unused(directory+"/world/remastered")
+
+    ##Change directory to temp folder
+    os.chdir(directory)
 
     ##Calling function to get all file paths in the directory
-    file_paths=get_all_file_paths(directory)
+    file_paths=get_all_file_paths('./')
   
     ##Printing the list of all files to be compiled
     print('Following files will be compiled:')
@@ -52,79 +84,18 @@ def compile_mod():
         print(file_name)
   
     ##Writing files to a zipfile
-    with ZipFile(map_name+".lebmod",'w') as zip:
+    with ZipFile("../"+modnameSpaceless+".lebmod",'w') as zip:
         ##Writing each file one by one
         for file in file_paths:
             zip.write(file)
-    
+    ##Change directory back to starting point
+    os.chdir('../')
+    #https://www.geeksforgeeks.org/change-current-working-directory-with-python/
     ##Remove temporary mod folder
-    shutil.rmtree("mod")
+    shutil.rmtree(directory)
   
     print('All files compiled successfully!')
 
-##Asks for user input to establish parameters and write to metadata
-meta_input=["","",""]
-for i in range(3):
-    inp=input("Enter "+"World Directory"*(i==0)+"Map Name"*(i==1)+"Description"*(i==2)+": ")
-    print(("Set world directory to "+inp+"\n")*(i==0)+("Map name set to "+inp+"\n")*(i==1)+("Set description to \""+inp+"\"\n")*(i==2))
-    meta_input[i]=inp
-world_folder,map_name,map_desc=meta_input
-
-##Find if small/large or just one type
-multi_variant=None
-while multi_variant not in ("y", "n", True, False):
-    multi_variant=input("Does your map have a small and large variant or just one variant? y/n: ")
-    if multi_variant=="y":
-        multi_variant=True
-        print("Set map to have multiple variants\n")
-    elif multi_variant=="n":
-        multi_variant=False
-        has_small = False
-        has_large = False
-        print("Set map to have one variant\n")
-    else:
-        print("Invalid answer given\n")
-
-if multi_variant:
-    has_small=None
-    while has_small not in ("y", "n", True, False):
-        has_small=input("Does this map have a small variant? y/n: ")
-        if has_small=="y":
-            has_small=True
-            print("Set map to small\n")
-        elif has_small=="n":
-            has_small=False
-            print("Set map to not small\n")
-        else:
-            print("Invalid answer given\n")
-    has_large=None
-    while has_large not in ("y", "n", True, False):
-        has_large=input("Does this map have a large variant? y/n: ")
-        if has_large=="y":
-            has_large=True
-            print("Set map to large\n")
-        elif has_large=="n":
-            has_large=False
-            print("Set map to not large\n")
-        else:
-            print("Invalid answer given\n")
-
-print("Creating mod folder...")
-try:
-    os.mkdir('mod')
-except OSError:
-    print("Mod folder already exists!")
-
-def write_meta():
-    lebmeta=open("mod/lebmeta.txt","a")
-    lebmeta.write("map_name = \""+str(map_name)+"\"")
-    lebmeta.write("\nmap_desc = \""+str(map_desc)+"\"")
-    lebmeta.write("\nmulti_variant = "+str(multi_variant))
-    lebmeta.write("\nhas_small = "+str(has_small))
-    lebmeta.write("\nhas_large = "+str(has_large))
-    #lebmeta.write("\nhas_largeplus = "+str(has_largeplus))
-    lebmeta.close
-
 ##Compile it
-write_meta()
+load_mod_config()
 compile_mod()

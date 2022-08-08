@@ -19,7 +19,7 @@ def loadmodconfig():
     modnameSpaceless = str(modconfig['name']).replace(' ', '-')
     #Create mod ID variable
     global modID
-    modID = str(modconfig['id']) 
+    modID = str(modconfig['id'])
     print("Loaded config for mod "+str(modconfig['name']))
 
 def injectcode():
@@ -38,16 +38,16 @@ def injectcode():
     print("MapID: "+str(maxMap))
     #Close file
     lbFile.close
-    ##Write to map teleport file  
-    # Open file  
-    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/game/setup/teleport/load.mcfunction"  
-    lbFile = open(filePath, "a")  
-    # Write header  
+    ##Write to map teleport file
+    # Open file
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/game/setup/teleport/load.mcfunction"
+    lbFile = open(filePath, "a")
+    # Write header
     lbFile.write("\n##" + str(modconfig['name']))
-    baseCmd = "execute if score #Store 4j.map matches " + str(  
-        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ in 4jbattle:$MAPNAME$ run tp @s " + str(  
-        modconfig['centercoords'])   
-    # Write teleport coordinates  
+    baseCmd = "execute if score #Store 4j.map matches " + str(
+        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ in 4jbattle:$MAPNAME$ run tp @s " + str(
+        modconfig['centercoords'])
+    # Write teleport coordinates
     if modconfig['hassmall']:
         lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID + "_small"))
     else:
@@ -64,7 +64,7 @@ def injectcode():
         lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID + "_remastered"))
     else:
         lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID))
-    # Close file  
+    # Close file
     lbFile.close
     ##Write to mapreset file
     #Open file
@@ -72,8 +72,8 @@ def injectcode():
     lbFile = open(filePath, "a")
     #Write header
     lbFile.write("\n##"+str(modconfig['name']))
-    baseCmd = "execute if score #Store 4j.map matches " + str(  
-        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ in 4jbattle:$MAPNAME$ run function 4jbattle:game/mapreset/$MAPNAME$"   
+    baseCmd = "execute if score #Store 4j.map matches " + str(
+        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ in 4jbattle:$MAPNAME$ run function 4jbattle:game/mapreset/$MAPNAME$"
     #Write code to point to resetfiles
     if modconfig['hassmall']:
         lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID + "_small"))

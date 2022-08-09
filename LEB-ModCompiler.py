@@ -58,6 +58,9 @@ def compile_mod():
     ##Copy files to temp folder
     shutil.copytree("src",directory)
 
+    ##Rename lebmod.json to config.json
+    os.rename(directory+"/lebmod.json",directory+"/config.json")
+
     ##Remove unused data
     if modconfig['hassmall']:
         print("Cleaning up unused files for Small map type")

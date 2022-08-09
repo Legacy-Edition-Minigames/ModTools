@@ -12,6 +12,12 @@ execute as @e[type=bat,tag=spawnrandomtp] at @s run function leb-builder:spawn/s
 #Center
 execute as @e[type=bat,tag=spawncentertp] at @s run function leb-builder:spawn/spawnpoint/center
 
+##Borders
+#Positive
+execute as @e[type=bat,tag=spawnborder+] at @s run function leb-builder:spawn/border/positive
+#Negative
+execute as @e[type=bat,tag=spawnborder-] at @s run function leb-builder:spawn/border/negative
+
 ##Center
 execute as @e[type=bat,tag=spawncenter] at @s run function leb-builder:spawn/center
 

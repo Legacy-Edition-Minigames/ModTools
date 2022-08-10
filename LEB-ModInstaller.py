@@ -93,6 +93,108 @@ def injectcode():
         lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID))
     #Close file
     lbFile.close
+    ##Add resetfiles
+    #Small
+    filePath = "4j.modtools-temp/resetfile/mcfunction/small.mcfunction"
+    if os.path.exists(filePath):
+        #Open file for reading
+        lbFile = open(filePath, "r")
+        #Set variables for replacing
+        stringToReplace = "$MODID$"
+        replaceWith = "4jbattle:"+modID+"_small"
+        #Read data
+        fileContents = lbFile.read()
+        #Replace the text
+        fileContents = fileContents.replace(stringToReplace, replaceWith)
+        #Open file for writing
+        lbFile = open(filePath, "w")
+        #Write new file
+        lbFile.write(fileContents)
+        #Close file
+        lbFile.close
+        #Open file
+        lbFile = open(filePath, "r")
+        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"small.mcfunction")
+    #Large
+    filePath = "4j.modtools-temp/resetfile/mcfunction/large.mcfunction"
+    if os.path.exists(filePath):
+        #Open file for reading
+        lbFile = open(filePath, "r")
+        #Set variables for replacing
+        stringToReplace = "$MODID$"
+        replaceWith = "4jbattle:"+modID
+        #Read data
+        fileContents = lbFile.read()
+        #Replace the text
+        fileContents = fileContents.replace(stringToReplace, replaceWith)
+        #Open file for writing
+        lbFile = open(filePath, "w")
+        #Write new file
+        lbFile.write(fileContents)
+        #Close file
+        lbFile.close
+        #Open file
+        lbFile = open(filePath, "r")
+        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+".mcfunction")
+    #Large+
+    filePath = "4j.modtools-temp/resetfile/mcfunction/largeplus.mcfunction"
+    if os.path.exists(filePath):
+        #Open file for reading
+        lbFile = open(filePath, "r")
+        #Set variables for replacing
+        stringToReplace = "$MODID$"
+        replaceWith = "4jbattle:"+modID+"_largeplus"
+        #Read data
+        fileContents = lbFile.read()
+        #Replace the text
+        fileContents = fileContents.replace(stringToReplace, replaceWith)
+        #Open file for writing
+        lbFile = open(filePath, "w")
+        #Write new file
+        lbFile.write(fileContents)
+        #Close file
+        lbFile.close
+        #Open file
+        lbFile = open(filePath, "r")
+        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"largeplus.mcfunction")
+    #Remastered
+    filePath = "4j.modtools-temp/resetfile/mcfunction/remastered.mcfunction"
+    if os.path.exists(filePath):
+        #Open file for reading
+        lbFile = open(filePath, "r")
+        #Set variables for replacing
+        stringToReplace = "$MODID$"
+        replaceWith = "4jbattle:"+modID+"_remastered"
+        #Read data
+        fileContents = lbFile.read()
+        #Replace the text
+        fileContents = fileContents.replace(stringToReplace, replaceWith)
+        #Open file for writing
+        lbFile = open(filePath, "w")
+        #Write new file
+        lbFile.write(fileContents)
+        #Close file
+        lbFile.close
+        #Open file
+        lbFile = open(filePath, "r")
+        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"remastered.mcfunction")
+    ##Copy reset structure files
+    #Small
+    filePath = "4j.modtools-temp/resetfile/structure/small.nbt"
+    if os.path.exists(filePath):
+        shutil.copyfile(filePath, "world/generated/4jbattle/structures/"+modID+"_small.nbt")
+    #Large
+    filePath = "4j.modtools-temp/resetfile/structure/large.nbt"
+    if os.path.exists(filePath):
+        shutil.copyfile(filePath, "world/generated/4jbattle/structures/"+modID+".nbt")
+    #Large+
+    filePath = "4j.modtools-temp/resetfile/structure/largeplus.nbt"
+    if os.path.exists(filePath):
+        shutil.copyfile(filePath, "world/generated/4jbattle/structures/"+modID+"_largeplus.nbt")
+    #Remastered
+    filePath = "4j.modtools-temp/resetfile/structure/remastered.nbt"
+    if os.path.exists(filePath):
+        shutil.copyfile(filePath, "world/generated/4jbattle/structures/"+modID+"_remastered.nbt")
     ##Have the map get loaded by mapdecider
     #Open file
     filePath = "world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/loadenabled.mcfunction"

@@ -361,6 +361,45 @@ def injectcode():
     lbFile.write("##Disable map\nscoreboard players set #"+modID+" 4j.setenablemap 0\n\n##Decrease mapcount\nscoreboard players remove #Store 4j.mapcount 1\n\n##Open menu\nfunction 4jbattle:menu/load/host/mapgui/main")
     #Close file
     lbFile.close
+    ##Add to preset save file
+    #Add variable to count with
+    presetCounter = 1
+    while presetCounter <= 10:
+        #Open file
+        filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/preset/save/"+str(presetCounter)+".mcfunction"
+        lbFile = open(filePath, "a")
+        #Write save data
+        lbFile.write("\nadvancement revoke @s only 4jbattle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"\nexecute if score #"+modID+" 4j.setenablemap matches 0 run advancement grant @s only 4jbattle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID)
+        #Close file
+        lbFile.close
+        #Increment counter
+        presetCounter = presetCounter + 1
+    ##Add to preset load file
+    #Set counter back to 1
+    presetCounter = 1
+    while presetCounter <= 10:
+        #Open file
+        filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/preset/load/"+str(presetCounter)+".mcfunction"
+        lbFile = open(filePath, "a")
+        #Write save data
+        lbFile.write("\nexecute if entity @s[advancements={4jbattle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=true}] run scoreboard players set #"+modID+" 4j.setenablemap 0\nexecute if entity @s[advancements={4jbattle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=false}] run scoreboard players set #"+modID+" 4j.setenablemap 1\nexecute if entity @s[advancements={4jbattle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=true}] run scoreboard players remove #Store 4j.mapcount 1")
+        #Close file
+        lbFile.close
+        #Increment counter
+        presetCounter = presetCounter + 1
+    ##Create preset savedata files
+    #Set counter back to one
+    presetCounter = 1
+    while presetCounter <= 10:
+        #Open file
+        filePath = "world/datapacks/4jbattle/data/4jbattle/advancements/menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+".json"
+        lbFile = open(filePath, "w")
+        #Write data
+        lbFile.write("{\n  \"criteria\": {\n    \"requirement\": {\n      \"trigger\": \"minecraft:impossible\"\n    }\n  }\n}\n")
+        #Close file
+        lbFile.close
+        #Increment counter
+        presetCounter = presetCounter + 1
     ##Set pack to load
     #Open file
     filePath = "world/datapacks/4jbattle/data/4jbattle/functions/game/resource/load/load.mcfunction"

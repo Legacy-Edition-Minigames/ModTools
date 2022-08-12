@@ -45,25 +45,24 @@ def injectcode():
     # Write header
     lbFile.write("\n##" + str(modconfig['name']))
     baseCmd = "execute if score #Store 4j.map matches " + str(
-        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ in 4jbattle:$MAPNAME$ run tp @s " + str(
-        modconfig['centercoords'])
+        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ in 4jbattle:$MAPNAME$ run tp @s " + "$CENTERCOORDS$"
     # Write teleport coordinates
     if modconfig['hassmall']:
-        lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID + "_small"))
+        lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID + "_small").replace("$CENTERCOORDS$", str(modconfig['centercoords_small'])))
     else:
-        lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID))
+        lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     if modconfig['haslarge']:
-        lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$MAPNAME$", modID))
+        lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     else:
-        lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$MAPNAME$", modID))
+        lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     if modconfig['haslargeplus']:
-        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID + "_largeplus"))
+        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID + "_largeplus").replace("$CENTERCOORDS$", str(modconfig['centercoords_largeeplus'])))
     else:
-        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID))
+        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     if modconfig['hasremastered']:
-        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID + "_remastered"))
+        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID + "_remastered").replace("$CENTERCOORDS$", str(modconfig['centercoords_remastered'])))
     else:
-        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID))
+        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     # Close file
     lbFile.close
     ##Write to mapreset file

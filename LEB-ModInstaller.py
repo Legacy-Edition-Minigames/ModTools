@@ -114,7 +114,7 @@ def injectcode():
         lbFile.close
         #Open file
         lbFile = open(filePath, "r")
-        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"small.mcfunction")
+        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"_small.mcfunction")
     #Large
     filePath = "4j.modtools-temp/resetfile/mcfunction/large.mcfunction"
     if os.path.exists(filePath):
@@ -156,7 +156,7 @@ def injectcode():
         lbFile.close
         #Open file
         lbFile = open(filePath, "r")
-        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"largeplus.mcfunction")
+        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"_largeplus.mcfunction")
     #Remastered
     filePath = "4j.modtools-temp/resetfile/mcfunction/remastered.mcfunction"
     if os.path.exists(filePath):
@@ -177,7 +177,7 @@ def injectcode():
         lbFile.close
         #Open file
         lbFile = open(filePath, "r")
-        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"remastered.mcfunction")
+        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"_remastered.mcfunction")
     ##Copy reset structure files
     #Small
     filePath = "4j.modtools-temp/resetfile/structure/small.nbt"

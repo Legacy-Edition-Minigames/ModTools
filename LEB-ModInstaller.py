@@ -211,7 +211,7 @@ def injectcode():
     #Write header
     lbFile.write("\n#"+str(modconfig['name']))
     #Add code for finding the vote
-    lbFile.write("\nexecute if score #"+modID+" 4j.enablemap matches 1 if score §aM:"+modnameSpaceless+" 4j.mapvote = #highestScore 4j.mapvote run scoreboard players set #Store 4j.map "+str(maxMap))
+    lbFile.write("\nexecute if score #"+modID+" 4j.enablemap matches 1 if score §a⚒:"+modnameSpaceless+" 4j.mapvote = #highestScore 4j.mapvote run scoreboard players set #Store 4j.map "+str(maxMap))
     #Close file
     lbFile.close
     ##Allow map to be detected from random chance
@@ -243,7 +243,7 @@ def injectcode():
     #Write header
     lbFile.write("\n#"+str(modconfig['name']))
     #Write code to load to sidebar
-    lbFile.write("\n#"+str(modconfig['name'])+"\nexecute if score #"+modID+" 4j.enablemap matches 1 run scoreboard players set §aM:"+modnameSpaceless+" 4j.mapvote 0")
+    lbFile.write("\n#"+str(modconfig['name'])+"\nexecute if score #"+modID+" 4j.enablemap matches 1 run scoreboard players set §a⚒:"+modnameSpaceless+" 4j.mapvote 0")
     #Close file
     lbFile.close
     ##Remove map from vote if another map is voted for
@@ -251,7 +251,7 @@ def injectcode():
     filePath = "world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/vote/rmoldvote.mcfunction"
     lbFile = open(filePath, "a")
     #Write code to remove vote
-    lbFile.write("\n##Remove "+str(modconfig['name'])+"map vote\nexecute if entity @s[tag=vote"+modID+"] run scoreboard players remove §aM:"+modnameSpaceless+" 4j.mapvote 1")
+    lbFile.write("\n##Remove "+str(modconfig['name'])+"map vote\nexecute if entity @s[tag=vote"+modID+"] run scoreboard players remove §a⚒:"+modnameSpaceless+" 4j.mapvote 1")
     #Close file
     lbFile.close
     ##Remove tag from user when switching votes
@@ -267,7 +267,7 @@ def injectcode():
     filePath = "world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/vote/add/"+modID+".mcfunction"
     lbFile = open(filePath, "w")
     #Write code to add the vote
-    lbFile.write("##Add vote\nscoreboard players add §aM:"+modnameSpaceless+" 4j.mapvote 1\n\n##Run global vote commands\nfunction 4jbattle:mapdecider/vote/add/global\n\n##Mark as voted\ntag @s add vote"+modID)
+    lbFile.write("##Add vote\nscoreboard players add §a⚒:"+modnameSpaceless+" 4j.mapvote 1\n\n##Run global vote commands\nfunction 4jbattle:mapdecider/vote/add/global\n\n##Mark as voted\ntag @s add vote"+modID)
     #Close file
     lbFile.close
     ##Add map to map list

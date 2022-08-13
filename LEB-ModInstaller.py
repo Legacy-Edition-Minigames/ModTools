@@ -22,6 +22,46 @@ def loadmodconfig():
     modID = str(modconfig['id'])
     print("Loaded config for mod "+str(modconfig['name']))
 
+def injectmotd():
+    filePath = "server.properties"
+    if os.path.exists(filePath):
+        ##Open file for reading
+        lbFile = open(filePath, "r")
+        #Set variables for replacing
+        stringToReplace = "\\u00A7ogit-"
+        replaceWith = "\\u00A7oM-git-"
+        #Read data
+        fileContents = lbFile.read()
+        #Replace the text
+        fileContents = fileContents.replace(stringToReplace, replaceWith)
+        #Open file for writing
+        lbFile = open(filePath, "w")
+        #Write new file
+        lbFile.write(fileContents)
+        #Close file
+        lbFile.close
+        filePath = "config/MiniMOTD/main.conf"
+        if os.path.exists(filePath):
+            ##Open file for reading
+            lbFile = open(filePath, "r")
+            #Set variables for replacing
+            stringToReplace = "<italic>git-"
+            replaceWith = "⚒<italic>-git-"
+            #Read data
+            fileContents = lbFile.read()
+            #Replace the text
+            fileContents = fileContents.replace(stringToReplace, replaceWith)
+            #Open file for writing
+            lbFile = open(filePath, "w")
+            #Write new file
+            lbFile.write(fileContents)
+            #Close file
+            lbFile.close
+        else:
+            print("WARNING: Unable to find MiniMOTD config! Is this not a LEB-ToolBox server?")
+    else:
+        print("WARNING: Unable to find server.properties! Is this server configured properly?")
+
 def injectcode():
     print("Attempting to inject to datapack!")
     ##Get map ID
@@ -488,5 +528,8 @@ for fileList in os.listdir("lebmods/"):
             print("Installed mod "+str(modconfig['name']))
         ##Remove temp directory
         shutil.rmtree("4j.modtools-temp")
+
+##Inject to MOTD upon installation being finished
+injectmotd()
 
 print("Done!")

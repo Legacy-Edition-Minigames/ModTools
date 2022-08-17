@@ -96,7 +96,7 @@ def injectcode():
     else:
         lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     if modconfig['haslargeplus']:
-        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID + "_largeplus").replace("$CENTERCOORDS$", str(modconfig['centercoords_largeeplus'])))
+        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID + "_largeplus").replace("$CENTERCOORDS$", str(modconfig['centercoords_largeplus'])))
     else:
         lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     if modconfig['hasremastered']:

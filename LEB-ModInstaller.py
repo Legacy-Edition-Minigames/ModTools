@@ -96,13 +96,13 @@ def injectcode():
     else:
         lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     if modconfig['haslargeplus']:
-        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID + "_largeplus").replace("$CENTERCOORDS$", str(modconfig['centercoords_largeplus'])))
+        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID + "_largeplus").replace("$CENTERCOORDS$", str(modconfig['centercoords_largeplus'])))
     else:
-        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
+        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     if modconfig['hasremastered']:
-        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID + "_remastered").replace("$CENTERCOORDS$", str(modconfig['centercoords_remastered'])))
+        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID + "_remastered").replace("$CENTERCOORDS$", str(modconfig['centercoords_remastered'])))
     else:
-        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
+        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     # Close file
     lbFile.close
     ##Write to mapreset file
@@ -123,13 +123,13 @@ def injectcode():
     else:
         lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$MAPNAME$", modID))
     if modconfig['haslargeplus']:
-        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID + "_largeplus"))
+        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID + "_largeplus"))
     else:
-        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID))
+        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID))
     if modconfig['hasremastered']:
-        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID + "_remastered"))
+        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID + "_remastered"))
     else:
-        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID))
+        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID))
     #Close file
     lbFile.close
     ##Add resetfiles

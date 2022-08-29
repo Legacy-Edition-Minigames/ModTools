@@ -78,42 +78,15 @@ def injectcode():
     print("MapID: "+str(maxMap))
     #Close file
     lbFile.close
-    ##Write to map teleport file
+    ##Write to map load file
     # Open file
-    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/game/setup/teleport/load.mcfunction"
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/game/setup/load.mcfunction"
     lbFile = open(filePath, "a")
     # Write header
     lbFile.write("\n##" + str(modconfig['name']))
     baseCmd = "execute if score #Store 4j.map matches " + str(
-        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ in 4jbattle:$MAPNAME$ run tp @s " + "$CENTERCOORDS$"
+        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ run dimensionloader prepareDimension 4jbattle:arena 4jbattle:$MAPNAME$ 4jbattle:game/resource/dimensionloaded"
     # Write teleport coordinates
-    if modconfig['hassmall']:
-        lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID + "_small").replace("$CENTERCOORDS$", str(modconfig['centercoords_small'])))
-    else:
-        lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
-    if modconfig['haslarge']:
-        lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
-    else:
-        lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
-    if modconfig['haslargeplus']:
-        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID + "_largeplus").replace("$CENTERCOORDS$", str(modconfig['centercoords_largeplus'])))
-    else:
-        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
-    if modconfig['hasremastered']:
-        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID + "_remastered").replace("$CENTERCOORDS$", str(modconfig['centercoords_remastered'])))
-    else:
-        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID).replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
-    # Close file
-    lbFile.close
-    ##Write to mapreset file
-    #Open file
-    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/new.mcfunction"
-    lbFile = open(filePath, "a")
-    #Write header
-    lbFile.write("\n##"+str(modconfig['name']))
-    baseCmd = "execute if score #Store 4j.map matches " + str(
-        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ in 4jbattle:$MAPNAME$ run function 4jbattle:game/mapreset/$MAPNAME$"
-    #Write code to point to resetfiles
     if modconfig['hassmall']:
         lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID + "_small"))
     else:
@@ -130,110 +103,35 @@ def injectcode():
         lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID + "_remastered"))
     else:
         lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID))
-    #Close file
+    # Close file
     lbFile.close
-    ##Add resetfiles
-    #Small
-    filePath = "4j.modtools-temp/resetfile/mcfunction/small.mcfunction"
-    if os.path.exists(filePath):
-        #Open file for reading
-        lbFile = open(filePath, "r")
-        #Set variables for replacing
-        stringToReplace = "$MODID$"
-        replaceWith = "4jbattle:"+modID+"_small"
-        #Read data
-        fileContents = lbFile.read()
-        #Replace the text
-        fileContents = fileContents.replace(stringToReplace, replaceWith)
-        #Open file for writing
-        lbFile = open(filePath, "w")
-        #Write new file
-        lbFile.write(fileContents)
-        #Close file
-        lbFile.close
-        #Open file
-        lbFile = open(filePath, "r")
-        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"_small.mcfunction")
-    #Large
-    filePath = "4j.modtools-temp/resetfile/mcfunction/large.mcfunction"
-    if os.path.exists(filePath):
-        #Open file for reading
-        lbFile = open(filePath, "r")
-        #Set variables for replacing
-        stringToReplace = "$MODID$"
-        replaceWith = "4jbattle:"+modID
-        #Read data
-        fileContents = lbFile.read()
-        #Replace the text
-        fileContents = fileContents.replace(stringToReplace, replaceWith)
-        #Open file for writing
-        lbFile = open(filePath, "w")
-        #Write new file
-        lbFile.write(fileContents)
-        #Close file
-        lbFile.close
-        #Open file
-        lbFile = open(filePath, "r")
-        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+".mcfunction")
-    #Large+
-    filePath = "4j.modtools-temp/resetfile/mcfunction/largeplus.mcfunction"
-    if os.path.exists(filePath):
-        #Open file for reading
-        lbFile = open(filePath, "r")
-        #Set variables for replacing
-        stringToReplace = "$MODID$"
-        replaceWith = "4jbattle:"+modID+"_largeplus"
-        #Read data
-        fileContents = lbFile.read()
-        #Replace the text
-        fileContents = fileContents.replace(stringToReplace, replaceWith)
-        #Open file for writing
-        lbFile = open(filePath, "w")
-        #Write new file
-        lbFile.write(fileContents)
-        #Close file
-        lbFile.close
-        #Open file
-        lbFile = open(filePath, "r")
-        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"_largeplus.mcfunction")
-    #Remastered
-    filePath = "4j.modtools-temp/resetfile/mcfunction/remastered.mcfunction"
-    if os.path.exists(filePath):
-        #Open file for reading
-        lbFile = open(filePath, "r")
-        #Set variables for replacing
-        stringToReplace = "$MODID$"
-        replaceWith = "4jbattle:"+modID+"_remastered"
-        #Read data
-        fileContents = lbFile.read()
-        #Replace the text
-        fileContents = fileContents.replace(stringToReplace, replaceWith)
-        #Open file for writing
-        lbFile = open(filePath, "w")
-        #Write new file
-        lbFile.write(fileContents)
-        #Close file
-        lbFile.close
-        #Open file
-        lbFile = open(filePath, "r")
-        shutil.copyfile(filePath, "world/datapacks/4jbattle/data/4jbattle/functions/game/mapreset/"+modID+"_remastered.mcfunction")
-    ##Copy reset structure files
-    #Small
-    filePath = "4j.modtools-temp/resetfile/structure/small.nbt"
-    if os.path.exists(filePath):
-        shutil.copyfile(filePath, "world/generated/4jbattle/structures/"+modID+"_small.nbt")
-    #Large
-    filePath = "4j.modtools-temp/resetfile/structure/large.nbt"
-    if os.path.exists(filePath):
-        shutil.copyfile(filePath, "world/generated/4jbattle/structures/"+modID+".nbt")
-    #Large+
-    filePath = "4j.modtools-temp/resetfile/structure/largeplus.nbt"
-    if os.path.exists(filePath):
-        shutil.copyfile(filePath, "world/generated/4jbattle/structures/"+modID+"_largeplus.nbt")
-    #Remastered
-    filePath = "4j.modtools-temp/resetfile/structure/remastered.nbt"
-    if os.path.exists(filePath):
-        shutil.copyfile(filePath, "world/generated/4jbattle/structures/"+modID+"_remastered.nbt")
+    ##Write to map teleport file
+    # Open file
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/game/setup/teleport/load.mcfunction"
+    lbFile = open(filePath, "a")
+    # Write header
+    lbFile.write("\n##" + str(modconfig['name']))
+    baseCmd = "execute if score #Store 4j.map matches " + str(
+        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ in 4jbattle:arena run tp @s " + "$CENTERCOORDS$"
+    # Write teleport coordinates
+    if modconfig['hassmall']:
+        lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$CENTERCOORDS$", str(modconfig['centercoords_small'])))
+    else:
+        lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
+    if modconfig['haslarge']:
+        lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
+    else:
+        lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
+    if modconfig['haslargeplus']:
+        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$CENTERCOORDS$", str(modconfig['centercoords_largeplus'])))
+    else:
+        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
+    if modconfig['hasremastered']:
+        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$CENTERCOORDS$", str(modconfig['centercoords_remastered'])))
+    else:
+        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
+    # Close file
+    lbFile.close
     ##Have the map get loaded by mapdecider
     #Open file
     filePath = "world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/loadenabled.mcfunction"
@@ -498,16 +396,12 @@ def copyworld():
             print("Remastered map type not found!")
     #Dimension data
     if modconfig['hassmall']:
-        shutil.copyfile("4j.modtools-temp/world/dimension.json","world/datapacks/4jbattle/data/4jbattle/dimension/"+modID+"_small.json")
         shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/4jbattle/data/4jbattle/dimension_type/"+modID+"_small.json")
     if modconfig['haslarge']:
-        shutil.copyfile("4j.modtools-temp/world/dimension.json","world/datapacks/4jbattle/data/4jbattle/dimension/"+modID+".json")
         shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/4jbattle/data/4jbattle/dimension_type/"+modID+".json")
     if modconfig['haslargeplus']:
-        shutil.copyfile("4j.modtools-temp/world/dimension.json","world/datapacks/4jbattle/data/4jbattle/dimension/"+modID+"_largeplus.json")
         shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/4jbattle/data/4jbattle/dimension_type/"+modID+"_largeplus.json")
     if modconfig['hasremastered']:
-        shutil.copyfile("4j.modtools-temp/world/dimension.json","world/datapacks/4jbattle/data/4jbattle/dimension/"+modID+"_remastered.json")
         shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/4jbattle/data/4jbattle/dimension_type/"+modID+"_remastered.json")
 
 for fileList in os.listdir("lebmods/"):

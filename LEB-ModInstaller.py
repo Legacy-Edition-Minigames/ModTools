@@ -215,6 +215,7 @@ def injectcode():
     #Write code to display the button
     maxMapDisable = maxMap + 2000
     lbFile.write("\nexecute if score #"+modID+" 4j.enablemap matches 1 run tellraw @s [\"\",{\"text\":\"["+str(modconfig['name'])+"] \",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(maxMapDisable)+"\"}},{\"text\":\"by "+str(modconfig['authors'])+"\",\"italic\":true,\"color\":\"dark_aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(maxMapDisable)+"\"}}]")
+    lbFile.write("\nexecute if score #"+modID+" 4j.enablemap matches 0 run tellraw @s [\"\",{\"text\":\"["+str(modconfig['name'])+"] \",\"color\":\"gray\"},{\"text\":\"by "+str(modconfig['authors'])+"\",\"italic\":true,\"color\":\"dark_aqua\"}]")
     #Close file
     lbFile.close
     ##Add redirect to open GUI page for the mod

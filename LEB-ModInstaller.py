@@ -397,13 +397,13 @@ def copyworld():
             print("Remastered map type not found!")
     #Dimension data
     if modconfig['hassmall']:
-        shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/4jbattle/data/4jbattle/dimension_type/"+modID+"_small.json")
+        shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/dimensiondata/data/4jbattle/dimension/"+modID+"_small.json")
     if modconfig['haslarge']:
-        shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/4jbattle/data/4jbattle/dimension_type/"+modID+".json")
+        shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/dimensiondata/data/4jbattle/dimension/"+modID+".json")
     if modconfig['haslargeplus']:
-        shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/4jbattle/data/4jbattle/dimension_type/"+modID+"_largeplus.json")
+        shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/dimensiondata/data/4jbattle/dimension/"+modID+"_largeplus.json")
     if modconfig['hasremastered']:
-        shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/4jbattle/data/4jbattle/dimension_type/"+modID+"_remastered.json")
+        shutil.copyfile("4j.modtools-temp/world/dimension_type.json","world/datapacks/dimensiondata/data/4jbattle/dimension/"+modID+"_remastered.json")
 
 for fileList in os.listdir("lebmods/"):
     if fileList.endswith(".lebmod"):
@@ -413,7 +413,7 @@ for fileList in os.listdir("lebmods/"):
         extractmod()
         ##Load the config of the mod
         loadmodconfig()
-        if os.path.exists("world/datapacks/4jbattle/data/4jbattle/dimension/"+modID+".json"):
+        if os.path.exists("world/datapacks/dimensiondata/data/4jbattle/dimension/"+modID+".json"):
             print("This mod is already installed! Skipping...")
         else:
             ##Inject code into the datapack

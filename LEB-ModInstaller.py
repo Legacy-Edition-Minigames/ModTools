@@ -3,6 +3,9 @@ import os
 import shutil
 from zipfile import ZipFile
 
+##Set amount of maps from the base game
+baseMapCount = 21 #I swear i will create a cleaner solution to this later
+
 def extractmod():
     print("Extracting mod archive!")
     with ZipFile(mod_archive, 'r') as zip:
@@ -76,6 +79,8 @@ def injectcode():
     with open(filePath, "w") as lbFile:
         json.dump(loot_table, lbFile)
     print("MapID: "+str(maxMap))
+    #Set variable for the map id without the vanilla map count
+    modCount = maxMap - baseMapCount
     #Close file
     lbFile.close
     ##Write to map load file
@@ -208,12 +213,66 @@ def injectcode():
     lbFile.write("##Add vote\nscoreboard players add §a⚒:"+modnameSpaceless+" 4j.mapvote 1\n\n##Run global vote commands\nfunction 4jbattle:mapdecider/vote/add/global\n\n##Mark as voted\ntag @s add vote"+modID)
     #Close file
     lbFile.close
+    ##Setup mod pages
+    #Get current page count
+    pageCount = int((modCount -1) / 5)
+    pageOpenValue = pageCount + 2000
+    #Create page folder if it doesnt exist already
+    try:
+        os.mkdir("world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/vote/modmenu/page")
+    except(FileExistsError):
+        pass
+    ##Take care of registering a page fully and adding adding the navigation buttons to it
+    if os.path.exists("world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/vote/modmenu/page/"+str(pageCount)+".mcfunction"):
+        pass
+    else:
+        ##Add page to list of pages
+        #Open file
+        filePath = "world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/vote/modmenu/main.mcfunction"
+        lbFile = open(filePath, "a")
+        #Write code to display the button
+        lbFile.write("\nexecute if score @s 4j.playermapvote matches -"+str(pageOpenValue)+" run function 4jbattle:mapdecider/vote/modmenu/page/"+str(pageCount))
+        #Close file
+        lbFile.close
+        ##Add buttons to change page
+        #Open file
+        filePath = "world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/vote/modmenu/page/"+str(pageCount)+".mcfunction"
+        lbFile = open(filePath, "a")
+        #Add button to code
+        lbFile.write("tellraw @s [\"\"")
+        if pageCount > 0:
+            lbFile.write(",{\"text\":\"<<\",\"color\":\"dark_aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue-1)+"\"}}")
+        else:
+            lbFile.write(",{\"text\":\"<<\",\"color\":\"gray\"}")
+        lbFile.write(",{\"text\":\" Page "+str(pageCount+1)+" \",\"color\":\"blue\"}")
+        lbFile.write(",{\"text\":\">>\",\"color\":\"gray\"},\"\\n\"]")
+        #Close file
+        lbFile.close
+        ##Add forward button to previous page
+        if pageCount > 0:
+            #Set file to open
+            filePath = "world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/vote/modmenu/page/"+str(pageCount-1)+".mcfunction"
+            #Open file for reading
+            lbFile = open(filePath, "r")
+            #Set variables for replacing
+            stringToReplace = "{\"text\":\">>\",\"color\":\"gray\"}"
+            replaceWith = "{\"text\":\">>\",\"color\":\"dark_aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"}}"
+            #Read data
+            fileContents = lbFile.read()
+            #Replace the text
+            fileContents = fileContents.replace(stringToReplace, replaceWith)
+            #Open file for writing
+            lbFile = open(filePath, "w")
+            #Write new file
+            lbFile.write(fileContents)
+            #Close file
+            lbFile.close
     ##Add map to map list
     #Open file
-    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/vote/modmenu/main.mcfunction"
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/vote/modmenu/page/"+str(pageCount)+".mcfunction"
     lbFile = open(filePath, "a")
     #Write code to display the button
-    maxMapDisable = maxMap + 2000
+    maxMapDisable = modCount + 3000
     lbFile.write("\nexecute if score #"+modID+" 4j.enablemap matches 1 run tellraw @s [\"\",{\"text\":\"["+str(modconfig['name'])+"] \",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(maxMapDisable)+"\"}},{\"text\":\"by "+str(modconfig['authors'])+"\",\"italic\":true,\"color\":\"dark_aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(maxMapDisable)+"\"}}]")
     lbFile.write("\nexecute if score #"+modID+" 4j.enablemap matches 0 run tellraw @s [\"\",{\"text\":\"["+str(modconfig['name'])+"] \",\"color\":\"gray\"},{\"text\":\"by "+str(modconfig['authors'])+"\",\"italic\":true,\"color\":\"dark_aqua\"}]")
     #Close file
@@ -236,6 +295,8 @@ def injectcode():
     lbFile.write("\n\n##Display description\ntellraw @s {\"text\":\"\\n"+str(modconfig['description'])+"\\n\",\"color\":\"dark_aqua\"}")
     #Write vote button
     lbFile.write("\n\n##Display vote button\ntellraw @s [\"\",{\"text\":\"[\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set "+str(maxMap)+"\"}},{\"translate\":\"4j.mapdecider.menu.vote\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set "+str(maxMap)+"\"}},{\"text\":\"]\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set "+str(maxMap)+"\"}}]")
+    #Show go back button
+    lbFile.write("\n\n##Display go back button\ntellraw @s [\"\",{\"text\":\"[\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"text\":\"Click to go back to mod map selection page.\",\"color\":\"dark_aqua\"}]}},{\"translate\":\"4j.generic.goback\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"text\":\"Click to go back to mod map selection page.\",\"color\":\"dark_aqua\"}]}},{\"text\":\"]\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"text\":\"Click to go back to mod map selection page.\",\"color\":\"dark_aqua\"}]}}]")
     #Run the global functions
     lbFile.write("\n\n##Run global functions\nfunction 4jbattle:mapdecider/vote/modmenu/map/global")
     ##Add map to the GUI to enable/disable maps

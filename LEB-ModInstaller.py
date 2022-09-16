@@ -65,6 +65,26 @@ def injectmotd():
     else:
         print("WARNING: Unable to find server.properties! Is this server configured properly?")
 
+def enablemenu():
+    ##Enable the menu on host options to manage mods
+    #Set file to open
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/mods/run.mcfunction"
+    #Open file for reading
+    lbFile = open(filePath, "r")
+    #Set variables for replacing
+    stringToReplace = "#tellraw"
+    replaceWith = "tellraw"
+    #Read data
+    fileContents = lbFile.read()
+    #Replace the text
+    fileContents = fileContents.replace(stringToReplace, replaceWith)
+    #Open file for writing
+    lbFile = open(filePath, "w")
+    #Write new file
+    lbFile.write(fileContents)
+    #Close file
+    lbFile.close
+
 def injectcode():
     print("Attempting to inject to datapack!")
     ##Get map ID
@@ -299,16 +319,61 @@ def injectcode():
     lbFile.write("\n\n##Display go back button\ntellraw @s [\"\",{\"text\":\"[\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"text\":\"Click to go back to mod map selection page.\",\"color\":\"dark_aqua\"}]}},{\"translate\":\"4j.generic.goback\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"text\":\"Click to go back to mod map selection page.\",\"color\":\"dark_aqua\"}]}},{\"text\":\"]\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"text\":\"Click to go back to mod map selection page.\",\"color\":\"dark_aqua\"}]}}]")
     #Run the global functions
     lbFile.write("\n\n##Run global functions\nfunction 4jbattle:mapdecider/vote/modmenu/map/global")
+    ##Create pages for maps management page
+    #lbFile = open(filePath, "a")
+    if os.path.exists("world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/mods/maps/list/"+str(pageCount)+".mcfunction"):
+        pass
+    else:
+        ##Add page to list of pages
+        #Open file
+        filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/mods/maps/list/main.mcfunction"
+        lbFile = open(filePath, "a")
+        #Write code to display the button
+        lbFile.write("\nexecute if score @s 4j.gamecfg matches "+str(pageOpenValue)+" run function 4jbattle:menu/load/host/mods/maps/list/"+str(pageCount))
+        #Close file
+        lbFile.close
+        ##Add buttons to change page
+        #Open file
+        filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/mods/maps/list/"+str(pageCount)+".mcfunction"
+        lbFile = open(filePath, "a")
+        #Add button to code
+        lbFile.write("tellraw @s [\"\"")
+        if pageCount > 0:
+            lbFile.write(",{\"text\":\"<<\",\"color\":\"dark_aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(pageOpenValue-1)+"\"}}")
+        else:
+            lbFile.write(",{\"text\":\"<<\",\"color\":\"gray\"}")
+        lbFile.write(",{\"text\":\" Page "+str(pageCount+1)+" \",\"color\":\"blue\"}")
+        lbFile.write(",{\"text\":\">>\",\"color\":\"gray\"},\"\\n\"]")
+        #Close file
+        lbFile.close
+        ##Add forward button to previous page
+        if pageCount > 0:
+            #Set file to open
+            filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/mods/maps/list/"+str(pageCount-1)+".mcfunction"
+            #Open file for reading
+            lbFile = open(filePath, "r")
+            #Set variables for replacing
+            stringToReplace = "{\"text\":\">>\",\"color\":\"gray\"}"
+            replaceWith = "{\"text\":\">>\",\"color\":\"dark_aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(pageOpenValue)+"\"}}"
+            #Read data
+            fileContents = lbFile.read()
+            #Replace the text
+            fileContents = fileContents.replace(stringToReplace, replaceWith)
+            #Open file for writing
+            lbFile = open(filePath, "w")
+            #Write new file
+            lbFile.write(fileContents)
+            #Close file
+            lbFile.close
     ##Add map to the GUI to enable/disable maps
     #Open file
-    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/mapgui/mods.mcfunction"
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/mods/maps/list/"+str(pageCount)+".mcfunction"
     lbFile = open(filePath, "a")
-    #Write ui code
-    lbFile.write("\nexecute if score #"+modID+" 4j.setenablemap matches 1 run tellraw @s [\"\",{\"text\":\"[\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapDisable)+"\"}},{\"text\":\"✔\",\"color\":\"green\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapDisable)+"\"}},{\"text\":\"] "+str(modconfig['name'])+"\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapDisable)+"\"}}]")
+    #Write code to display the button
     maxMapEnable = maxMap + 3000
-    lbFile.write("\nexecute if score #"+modID+" 4j.setenablemap matches 0 run tellraw @s [\"\",{\"text\":\"[\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapEnable)+"\"}},{\"text\":\"❌\",\"color\":\"red\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapEnable)+"\"}},{\"text\":\"] "+str(modconfig['name'])+"\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapEnable)+"\"}}]")
-    #Close file
-    lbFile.close
+    maxMapDisable = maxMap + 4000
+    lbFile.write("\nexecute if score #"+modID+" 4j.setenablemap matches 1 run tellraw @s [\"\",{\"text\":\"[\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapDisable)+"\"}},{\"text\":\"✔\",\"color\":\"green\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapDisable)+"\"}},{\"text\":\"] "+str(modconfig['name'])+" \",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapDisable)+"\"}},{\"text\":\"by "+str(modconfig['authors'])+"\",\"italic\":true,\"color\":\"dark_aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapDisable)+"\"}}]")
+    lbFile.write("\nexecute if score #"+modID+" 4j.setenablemap matches 0 run tellraw @s [\"\",{\"text\":\"[\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapEnable)+"\"}},{\"text\":\"❌\",\"color\":\"red\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapEnable)+"\"}},{\"text\":\"] "+str(modconfig['name'])+" \",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapEnable)+"\"}},{\"text\":\"by "+str(modconfig['authors'])+"\",\"italic\":true,\"color\":\"dark_aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(maxMapEnable)+"\"}}]")
     ##Add the backend code to allow changing of the enabled/disabled state
     #Open file
     filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/configure/map.mcfunction"
@@ -349,7 +414,7 @@ def injectcode():
     filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/map/"+modID+"/enable.mcfunction"
     lbFile = open(filePath, "w")
     #Write code to enable the map
-    lbFile.write("##Enable map\nscoreboard players set #"+modID+" 4j.setenablemap 1\n\n##Increase mapcount\nscoreboard players add #Store 4j.mapcount 1\n\n##Open menu\nfunction 4jbattle:menu/load/host/mapgui/main")
+    lbFile.write("##Enable map\nscoreboard players set #"+modID+" 4j.setenablemap 1\n\n##Increase mapcount\nscoreboard players add #Store 4j.mapcount 1\n\n##Open menu\n#Set score\nscoreboard players set @s 4j.gamecfg "+str(pageOpenValue)+"\n#Run function\nfunction 4jbattle:menu/load/host/mods/open/maps")
     #Close file
     lbFile.close
     ##Create files for disabling the map
@@ -357,7 +422,7 @@ def injectcode():
     filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/map/"+modID+"/disable.mcfunction"
     lbFile = open(filePath, "w")
     #Write code to disable the map
-    lbFile.write("##Disable map\nscoreboard players set #"+modID+" 4j.setenablemap 0\n\n##Decrease mapcount\nscoreboard players remove #Store 4j.mapcount 1\n\n##Open menu\nfunction 4jbattle:menu/load/host/mapgui/main")
+    lbFile.write("##Disable map\nscoreboard players set #"+modID+" 4j.setenablemap 0\n\n##Decrease mapcount\nscoreboard players remove #Store 4j.mapcount 1\n\n##Open menu\n#Set score\nscoreboard players set @s 4j.gamecfg "+str(pageOpenValue)+"\n#Run function\nfunction 4jbattle:menu/load/host/mods/open/maps")
     #Close file
     lbFile.close
     ##Add to preset save file
@@ -487,6 +552,9 @@ for fileList in os.listdir("lebmods/"):
 
 ##Inject to MOTD upon installation being finished
 injectmotd()
+
+##Enable the mods menu upon installation being finished
+enablemenu()
 
 ##Display finish message
 print("\033[32mFinished installing mods!")

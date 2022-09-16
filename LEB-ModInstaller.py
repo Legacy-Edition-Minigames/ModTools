@@ -488,4 +488,5 @@ for fileList in os.listdir("lebmods/"):
 ##Inject to MOTD upon installation being finished
 injectmotd()
 
-print("Done!")
+##Display finish message
+print("\033[32mFinished installing mods!")

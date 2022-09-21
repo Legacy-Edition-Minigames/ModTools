@@ -164,7 +164,7 @@ def injectcode():
     #Write header
     lbFile.write("\n#"+str(modconfig['name']))
     #Write code to enable the map if its enabled
-    lbFile.write("\nscoreboard players operation #"+modID+" 4j.enablemap = #"+modID+" 4j.setenablemap")
+    lbFile.write("\nexecute if score #Store 4j.enablemods matches 1 run scoreboard players operation #"+modID+" 4j.enablemap = #"+modID+" 4j.setenablemap\nexecute if score #Store 4j.enablemods matches 0 run scoreboard players set #"+modID+" 4j.enablemap 0")
     #Close file
     lbFile.close
     ##Allow map to be detected from voting

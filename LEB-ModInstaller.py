@@ -114,20 +114,12 @@ def injectcode():
     # Write teleport coordinates
     if modconfig['hassmall']:
         lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID + "_small"))
-    else:
-        lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID))
     if modconfig['haslarge']:
-        lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$MAPNAME$", modID))
-    else:
         lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$MAPNAME$", modID))
     if modconfig['haslargeplus']:
         lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID + "_largeplus"))
-    else:
-        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$MAPNAME$", modID))
     if modconfig['hasremastered']:
         lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID + "_remastered"))
-    else:
-        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$MAPNAME$", modID))
     # Close file
     lbFile.close
     ##Write to map teleport file
@@ -141,20 +133,12 @@ def injectcode():
     # Write teleport coordinates
     if modconfig['hassmall']:
         lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$CENTERCOORDS$", str(modconfig['centercoords_small'])))
-    else:
-        lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     if modconfig['haslarge']:
-        lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
-    else:
         lbFile.write("\n#Large\n"+baseCmd.replace("$MAPSIZE$", "2").replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     if modconfig['haslargeplus']:
         lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$CENTERCOORDS$", str(modconfig['centercoords_largeplus'])))
-    else:
-        lbFile.write("\n#Large+\n"+baseCmd.replace("$MAPSIZE$", "4").replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     if modconfig['hasremastered']:
         lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$CENTERCOORDS$", str(modconfig['centercoords_remastered'])))
-    else:
-        lbFile.write("\n#Remastered\n"+baseCmd.replace("$MAPSIZE$", "3").replace("$CENTERCOORDS$", str(modconfig['centercoords_large'])))
     # Close file
     lbFile.close
     ##Have the map get loaded by mapdecider
@@ -185,6 +169,31 @@ def injectcode():
     lbFile.write("\n#"+str(modconfig['name']))
     #Add code for finding the vote
     lbFile.write("\nexecute if score #"+modID+" 4j.enablemap matches 1 if score #Store 4j.maprandom matches "+str(maxMap)+" run scoreboard players set #Store 4j.map "+str(maxMap))
+    #Close file
+    lbFile.close
+    ##Set map types that arent available
+    #Open file
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/mapdecider/maptype/checkavailable.mcfunction"
+    lbFile = open(filePath, "a")
+    #Write header
+    lbFile.write("\n##" + str(modconfig['name']))
+    #Write disabled maps
+    if modconfig['hassmall']:
+        pass
+    else:
+        lbFile.write("\n#Small\nexecute if score #Store 4j.map matches "+str(maxMap)+" run scoreboard players set #Store 4j.maptypeavailable.small 0")
+    if modconfig['haslarge']:
+        pass
+    else:
+        lbFile.write("\n#Large\nexecute if score #Store 4j.map matches "+str(maxMap)+" run scoreboard players set #Store 4j.maptypeavailable.large 0")
+    if modconfig['haslargeplus']:
+        pass
+    else:
+        lbFile.write("\n#Large+\nexecute if score #Store 4j.map matches "+str(maxMap)+" run scoreboard players set #Store 4j.maptypeavailable.largeplus 0")
+    if modconfig['hasremastered']:
+        pass
+    else:
+        lbFile.write("\n#Remastered\nexecute if score #Store 4j.map matches "+str(maxMap)+" run scoreboard players set #Store 4j.maptypeavailable.remastered 0")
     #Close file
     lbFile.close
     ##Allow users to vote for the map

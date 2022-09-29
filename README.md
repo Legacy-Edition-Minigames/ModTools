@@ -5,6 +5,8 @@ Work in Progress Custom map creation & installation tool for LEB
 
 When using the datapack, please use 1.18.2, not 1.19, it may be a while until LEB takes 1.19 worlds
 
+For more information on how to use this, please view the [documentation](https://github.com/DBTDerpbox/LEB-ModTools/wiki)!
+
 ### Credits
 
 LEB ModTools project - [Emmie](https://github.com/DBTDerpbox)

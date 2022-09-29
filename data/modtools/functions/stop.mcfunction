@@ -1,5 +1,5 @@
 ##Clear schedule
-schedule clear leb-builder:check
+schedule clear modtools:check
 
 ##Reset exit score
 scoreboard players reset @a 4j.buildexit

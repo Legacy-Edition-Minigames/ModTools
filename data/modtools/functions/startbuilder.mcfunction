@@ -2,7 +2,7 @@
 scoreboard players reset @a 4j.buildexit
 
 ##Give items
-execute as @a run function leb-builder:give
+execute as @a run function modtools:give/check
 
 ##Start build check
-function leb-builder:check
+function modtools:check

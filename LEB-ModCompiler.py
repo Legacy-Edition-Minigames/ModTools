@@ -1,7 +1,7 @@
 import json
 import os
 import shutil
-from zipfile import ZipFile
+from zipfile import ZIP_BZIP2, ZipFile
 
 def get_all_file_paths(directory):
   
@@ -87,7 +87,7 @@ def compile_mod():
         print(file_name)
   
     ##Writing files to a zipfile
-    with ZipFile("../"+modnameSpaceless+".lebmod",'w') as zip:
+    with ZipFile(file="../"+modnameSpaceless+".lebmod",mode='w',compression=ZIP_BZIP2,compresslevel=9) as zip:
         ##Writing each file one by one
         for file in file_paths:
             zip.write(file)

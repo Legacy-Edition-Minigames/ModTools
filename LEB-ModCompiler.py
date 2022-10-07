@@ -1,7 +1,7 @@
 import json
 import os
 import shutil
-from zipfile import ZipFile
+from zipfile import ZIP_BZIP2, ZipFile
 
 def get_all_file_paths(directory):
   

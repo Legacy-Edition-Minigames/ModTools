@@ -90,7 +90,7 @@ def compile_mod():
     os.chdir('../')
     os.mkdir('output')
     os.chdir(directory)
-    with ZipFile("../output/"+modnameSpaceless+".lebmod",'w',compression=ZIP_BZIP2,compresslevel=9) as zip:
+    with ZipFile(file="../output/"+modnameSpaceless+".lebmod",mode='w',compression=ZIP_BZIP2,compresslevel=9) as zip:
         ##Writing each file one by one
         for file in file_paths:
             zip.write(file)

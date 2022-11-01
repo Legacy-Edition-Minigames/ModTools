@@ -110,7 +110,7 @@ def injectcode():
     # Write header
     lbFile.write("\n##" + str(modconfig['name']))
     baseCmd = "execute if score #Store 4j.map matches " + str(
-        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ run dimensionloader prepareDimension 4jbattle:arena 4jbattle:$MAPNAME$ 4jbattle:game/resource/dimensionloaded"
+        maxMap) + " if score #Store 4j.maptype matches $MAPSIZE$ run dimensionloader prepareDimension 4jbattle:arena 4jbattle:$MAPNAME$ 4jbattle:game/loading/dimensionloaded"
     # Write teleport coordinates
     if modconfig['hassmall']:
         lbFile.write("\n#Small\n"+baseCmd.replace("$MAPSIZE$", "1").replace("$MAPNAME$", modID + "_small"))
@@ -473,38 +473,47 @@ def injectcode():
         lbFile.close
         #Increment counter
         presetCounter = presetCounter + 1
-    ##Set pack to load
+    ##Set resource pack to load
     #Open file
-    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/game/resource/load/load.mcfunction"
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/resource/load/id/game.mcfunction"
     lbFile = open(filePath, "a")
     #Get pack ID
     if str(modconfig['pack'])=="vanilla":
         packID = 0
-    if str(modconfig['pack'])=="western":
-        packID = 1
     if str(modconfig['pack'])=="plastic":
-        packID = 2
+        packID = 1
     if str(modconfig['pack'])=="fantasy":
-        packID = 3
+        packID = 2
     if str(modconfig['pack'])=="city":
-        packID = 4
+        packID = 3
     if str(modconfig['pack'])=="greek":
-        packID = 5
+        packID = 4
     if str(modconfig['pack'])=="steampunk":
-        packID = 6
+        packID = 5
     if str(modconfig['pack'])=="chinese":
-        packID = 7
+        packID = 6
     if str(modconfig['pack'])=="halloween":
-        packID = 8
+        packID = 7
     if str(modconfig['pack'])=="festive":
-        packID = 9
+        packID = 8
     if str(modconfig['pack'])=="fallout":
-        packID = 10
+        packID = 9
     #Write pack ID into file
     if packID > 0:
         lbFile.write("\n#"+str(modconfig['name'])+"\nexecute if score #Store 4j.map matches "+str(maxMap)+" run scoreboard players set #Store 4j.pack "+str(packID))
     #Close file
     lbFile.close
+    ##Set music pack to load
+    #Open file
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/game/music/id.mcfunction"
+    lbFile = open(filePath, "a")
+    #Get pack ID
+    packID = 0
+    if str(modconfig['pack'])=="western":
+        packID = 10
+    #Write pack ID into file
+    if packID > 0:
+        lbFile.write("\n#"+str(modconfig['name'])+"\nexecute if score #Store 4j.map matches "+str(maxMap)+" run scoreboard players set #Store 4j.muspack "+str(packID))
 
 def copyworld():
     print("Copying world files!")

@@ -394,18 +394,36 @@ def injectcode():
     lbFile.close
     ##Enable map by default
     #Open file
-    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/defaults.mcfunction"
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/defaults/map.mcfunction"
     lbFile = open(filePath, "a")
     #Write code to enable the map
     lbFile.write("\nscoreboard players set #"+modID+" 4j.setenablemap 1")
     #Close file
     lbFile.close
-    ##Set max map count
+    ##Set max map count for adding
     #Open file for reading
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/mods/enable.mcfunction"
     lbFile = open(filePath, "r")
     #Set variables for replacing
-    stringToReplace = "scoreboard players set #Store 4j.mapcount "+str(maxMap -1)
-    replaceWith = "scoreboard players set #Store 4j.mapcount "+str(maxMap)
+    stringToReplace = "#Store 4j.mapcount "+str(modCount -1)
+    replaceWith = "#Store 4j.mapcount "+str(modCount)
+    #Read data
+    fileContents = lbFile.read()
+    #Replace the text
+    fileContents = fileContents.replace(stringToReplace, replaceWith)
+    #Open file for writing
+    lbFile = open(filePath, "w")
+    #Write new file
+    lbFile.write(fileContents)
+    #Close file
+    lbFile.close
+    ##Set max map count for removal
+    #Open file for reading
+    filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/mods/disable.mcfunction"
+    lbFile = open(filePath, "r")
+    #Set variables for replacing
+    stringToReplace = "#Store 4j.mapcount "+str(modCount -1)
+    replaceWith = "#Store 4j.mapcount "+str(modCount)
     #Read data
     fileContents = lbFile.read()
     #Replace the text
@@ -455,7 +473,7 @@ def injectcode():
         filePath = "world/datapacks/4jbattle/data/4jbattle/functions/menu/load/host/preset/load/"+str(presetCounter)+".mcfunction"
         lbFile = open(filePath, "a")
         #Write save data
-        lbFile.write("\nexecute if entity @s[advancements={4jbattle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=true}] run scoreboard players set #"+modID+" 4j.setenablemap 0\nexecute if entity @s[advancements={4jbattle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=false}] run scoreboard players set #"+modID+" 4j.setenablemap 1\nexecute if entity @s[advancements={4jbattle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=true}] run scoreboard players remove #Store 4j.mapcount 1")
+        lbFile.write("\nexecute if entity @s[advancements={4jbattle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=true}] run scoreboard players set #"+modID+" 4j.setenablemap 0\nexecute if entity @s[advancements={4jbattle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=false}] run scoreboard players set #"+modID+" 4j.setenablemap 1\nexecute if entity @s[advancements={4jbattle:menu/host/presets/"+str(presetCounter)+"/mods/enabled=true,4jbattle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=false}] run scoreboard players add #Store 4j.mapcount 1")
         #Close file
         lbFile.close
         #Increment counter

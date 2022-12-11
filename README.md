@@ -1,7 +1,7 @@
 # LEB-ModTools
 Custom content creation & installation tool for LEB
 
-When using the datapack, please use 1.18.2, not 1.19, it may be a while until LEB takes 1.19 worlds
+When using the datapack, please use 1.18.2 or above, please note it may be a while until LEB accepts 1.20 Content Worlds
 
 For more information on how to use this, please view the [documentation](https://github.com/DBTDerpbox/LEB-ModTools/wiki)!
 

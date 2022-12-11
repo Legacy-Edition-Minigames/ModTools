@@ -15,4 +15,4 @@ Helping out with JSON parsing for grabbing the map ID - [Leah](https://github.co
 
 Helping with accounting for loading maps with disabled map types - [Kyrptonaught](https://github.com/kyrptonaught)
 
-Creating GitHub actions for auto compiling mod - [S_NOOB](https://github.com/S-N00B-1)
+Creating GitHub actions for auto compiling mod - [S_N00B](https://github.com/S-N00B-1)

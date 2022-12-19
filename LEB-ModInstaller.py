@@ -250,7 +250,7 @@ def injectcode():
             lbFile.write(",{\"text\":\"<<\",\"color\":\"dark_aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue-1)+"\"}}")
         else:
             lbFile.write(",{\"text\":\"<<\",\"color\":\"gray\"}")
-        lbFile.write(",{\"text\":\" Page "+str(pageCount+1)+" \",\"color\":\"blue\"}")
+        lbFile.write(",{\"text\":\" \",\"color\":\"blue\"},{\"translate\":\"4j.menu.mods.page\",\"color\":\"blue\"},{\"text\":\" "+str(pageCount+1)+" \",\"color\":\"blue\"}")
         lbFile.write(",{\"text\":\">>\",\"color\":\"gray\"},\"\\n\"]")
         #Close file
         lbFile.close
@@ -290,7 +290,7 @@ def injectcode():
     #Write vote button
     lbFile.write("\n\n##Display vote button\ntellraw @s [\"\",{\"text\":\"[\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set "+str(maxMap)+"\"}},{\"translate\":\"4j.mapdecider.menu.vote\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set "+str(maxMap)+"\"}},{\"text\":\"]\",\"color\":\"blue\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set "+str(maxMap)+"\"}}]")
     #Show go back button
-    lbFile.write("\n\n##Display go back button\ntellraw @s [\"\",{\"text\":\"[\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"text\":\"Click to go back to mod map selection page.\",\"color\":\"dark_aqua\"}]}},{\"translate\":\"4j.generic.goback\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"text\":\"Click to go back to mod map selection page.\",\"color\":\"dark_aqua\"}]}},{\"text\":\"]\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"text\":\"Click to go back to mod map selection page.\",\"color\":\"dark_aqua\"}]}}]")
+    lbFile.write("\n\n##Display go back button\ntellraw @s [\"\",{\"text\":\"[\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"translate\":\"4j.menu.mods.goback\",\"color\":\"dark_aqua\"}]}},{\"translate\":\"4j.generic.goback\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"translate\":\"4j.menu.mods.goback\",\"color\":\"dark_aqua\"}]}},{\"text\":\"]\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.playermapvote set -"+str(pageOpenValue)+"\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":[{\"translate\":\"4j.menu.mods.goback\",\"color\":\"dark_aqua\"}]}}]")
     #Run the global functions
     lbFile.write("\n\n##Run global functions\nfunction 4jbattle:mapdecider/vote/modmenu/map/global")
     ##Create pages for maps management page
@@ -316,7 +316,7 @@ def injectcode():
             lbFile.write(",{\"text\":\"<<\",\"color\":\"dark_aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/trigger 4j.gamecfg set "+str(pageOpenValue-1)+"\"}}")
         else:
             lbFile.write(",{\"text\":\"<<\",\"color\":\"gray\"}")
-        lbFile.write(",{\"text\":\" Page "+str(pageCount+1)+" \",\"color\":\"blue\"}")
+        lbFile.write(",{\"text\":\" \",\"color\":\"blue\"},{\"translate\":\"4j.menu.mods.page\",\"color\":\"blue\"},{\"text\":\" "+str(pageCount+1)+" \",\"color\":\"blue\"}")
         lbFile.write(",{\"text\":\">>\",\"color\":\"gray\"},\"\\n\"]")
         #Close file
         lbFile.close

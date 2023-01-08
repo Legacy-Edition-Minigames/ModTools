@@ -444,6 +444,8 @@ def injectcode():
         packID = 9
     if str(modconfig['pack'])=="natural":
         packID = 10
+    if str(modconfig['pack'])=="cartoon":
+        packID = 11
     #Write pack ID into file
     if packID > 0:
         lbFile.write("\n#"+str(modconfig['name'])+"\nexecute if score #Store 4j.map matches "+str(maxMap)+" run scoreboard players set #Store 4j.pack "+str(packID))

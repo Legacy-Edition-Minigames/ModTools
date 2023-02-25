@@ -3,7 +3,7 @@ Custom content creation & installation tool for LEB
 
 When using the datapack, please use 1.18.2 or above, please note it may be a while until LEB accepts 1.20 Content Worlds
 
-For more information on how to use this, please view the [documentation](https://github.com/DBTDerpbox/LEB-ModTools/wiki)!
+For more information on how to use this, please view the [documentation](https://github.com/Legacy-Edition-Minigames/ModTools/wiki)!
 
 ### Credits
 

@@ -1,5 +1,5 @@
-# LEB-ModTools
-Custom content creation & installation tool for LEB
+# LEM-ModTools
+Custom content creation & installation tool for LEM
 
 When using the datapack, please use 1.18.2 or above, please note it may be a while until LEB accepts 1.20 Content Worlds
 

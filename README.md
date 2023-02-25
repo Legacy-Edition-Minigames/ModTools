@@ -7,7 +7,7 @@ For more information on how to use this, please view the [documentation](https:/
 
 ### Credits
 
-LEB ModTools project - [Emmie](https://github.com/DBTDerpbox)
+LEM ModTools project - [Emmie](https://github.com/DBTDerpbox)
 
 Helping me with cleaning up code - [Symmetry System](https://github.com/OsricSystem)
 

@@ -185,7 +185,7 @@ def injectcode():
     #If the user voted already
     lbFile.write("\n#If user has voted for this map\nexecute if score #"+modID+" lem.enablemap matches 1 as @a[scores={lem.playermapvote="+str(maxMap)+"},tag=vote"+modID+"] run function lem.base:mapdecider/vote/error")
     #IF the user hasn't voted
-    lbFile.write("\n#If the user hasnt voted for this map yet\nexecute if score #"+modID+" lem.enablemap matches 1 as @a[scores={lem.playermapvote="+str(maxMap)+"}] run function lem.base:mapdecider/vote/add/"+modID)
+    lbFile.write("\n#If the user hasnt voted for this map yet\nexecute if score #"+modID+" lem.enablemap matches 1 as @a[scores={lem.playermapvote="+str(maxMap)+"},tag=!vote"+modID+"] run function lem.base:mapdecider/vote/add/"+modID)
     #Close file
     lbFile.close
     ##Load the map into the sidebar if enabeld
@@ -200,7 +200,7 @@ def injectcode():
     lbFile.close
     ##Remove map from vote if another map is voted for
     #Open file
-    filePath = baseDPFolder+"functions/mapdecider/vote/rmoldvote.mcfunction"
+    filePath = battleDPFolder+"functions/mapdecider/vote/rmoldvote.mcfunction"
     lbFile = open(filePath, "a")
     #Write code to remove vote
     lbFile.write("\n##Remove "+str(modconfig['name'])+"map vote\nexecute if entity @s[tag=vote"+modID+"] run scoreboard players remove §a⚒:"+modnameSpaceless+" lem.mapvote 1")

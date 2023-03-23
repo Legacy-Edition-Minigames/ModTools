@@ -53,7 +53,7 @@ def rm_unused(directory):
 
 def compile_mod():
     ##path to folder which needs to be compiled
-    directory="4j.modtools-temp"
+    directory="lem.modtools-temp"
 
     ##Copy files to temp folder
     shutil.copytree("src",directory)

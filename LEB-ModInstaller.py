@@ -151,6 +151,16 @@ def injectcode():
     lbFile.write("\nexecute if score #"+modID+" lem.enablemap matches 1 if score #Store lem.maprandom matches "+str(maxMap)+" run scoreboard players set #Store lem.map "+str(maxMap))
     #Close file
     lbFile.close
+    ##Display map in discord when it loads
+    #Open file
+    filePath = battleDPFolder+"functions/mapdecider/discordmsg.mcfunction"
+    lbFile = open(filePath, "a")
+    #Write header
+    lbFile.write("\n#"+str(modconfig['name']))
+    #Add code for finding the vote
+    lbFile.write("\nexecute if score #Store lem.map matches "+str(maxMap)+" run discordMSG \"Loading map: :modding:"+str(modconfig['name'])+" made by "+str(modconfig['authors'])+"\"")
+    #Close file
+    lbFile.close
     ##Set map types that arent available
     #Open file
     filePath = battleDPFolder+"functions/mapdecider/maptype/checkavailable.mcfunction"

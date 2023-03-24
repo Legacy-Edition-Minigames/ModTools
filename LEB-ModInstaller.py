@@ -188,7 +188,7 @@ def injectcode():
     lbFile.write("\n#If the user hasnt voted for this map yet\nexecute if score #"+modID+" lem.enablemap matches 1 as @a[scores={lem.playermapvote="+str(maxMap)+"},tag=!vote"+modID+"] run function lem.base:mapdecider/vote/add/"+modID)
     #Close file
     lbFile.close
-    ##Load the map into the sidebar if enabeld
+    ##Load the map into the sidebar if enabled
     #Open file
     filePath = baseDPFolder+"functions/mapdecider/vote/load.mcfunction"
     lbFile = open(filePath, "a")
@@ -208,7 +208,7 @@ def injectcode():
     lbFile.close
     ##Remove tag from user when switching votes
     #Open file
-    filePath = baseDPFolder+"functions/mapdecider/vote/tagreset.mcfunction"
+    filePath = battleDPFolder+"functions/mapdecider/vote/tagreset.mcfunction"
     lbFile = open(filePath, "a")
     #Write code to remove tag
     lbFile.write("\n##"+str(modconfig['name'])+"\ntag @s remove vote"+modID)

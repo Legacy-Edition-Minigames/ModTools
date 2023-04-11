@@ -88,7 +88,10 @@ def compile_mod():
   
     ##Writing files to a zipfile
     os.chdir('../')
-    os.mkdir('output')
+    try:
+        os.mkdir('output')
+    except (FileExistsError):
+        print("Failed to create output folder as it already exists!")
     os.chdir(directory)
     with ZipFile(file="../output/"+modnameSpaceless+".lebmod",mode='w',compression=ZIP_BZIP2,compresslevel=9) as zip:
         ##Writing each file one by one

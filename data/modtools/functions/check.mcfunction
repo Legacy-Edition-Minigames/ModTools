@@ -29,6 +29,3 @@ function modtools:particle
 
 ##Loop
 schedule function modtools:check 5t
-
-##Exit option
-execute as @a[scores={4j.buildexit=1..},nbt={SelectedItem:{tag:{BuilderMode:1}}}] run function modtools:stop

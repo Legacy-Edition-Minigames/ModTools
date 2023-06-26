@@ -391,45 +391,38 @@ def injectcode():
     lbFile.write("##Disable map\nscoreboard players set #"+modID+" lem.setenablemap 0\n\n##Decrease mapcount\nscoreboard players remove #Store lem.mapcount 1\n\n##Open menu\n#Set score\nscoreboard players set @s lem.gamecfg "+str(pageOpenValue)+"\n#Run function\nfunction lem.base:menu/load/host/mods/open/maps")
     #Close file
     lbFile.close
-    ##Add to preset save file
-    #Add variable to count with
-    presetCounter = 1
-    while presetCounter <= 10:
-        #Open file
-        filePath = battleDPFolder+"functions/menu/load/host/preset/save/"+str(presetCounter)+".mcfunction"
-        lbFile = open(filePath, "a")
-        #Write save data
-        lbFile.write("\nadvancement revoke @s only lem.battle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"\nexecute if score #"+modID+" lem.setenablemap matches 0 run advancement grant @s only lem.battle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID)
-        #Close file
-        lbFile.close
-        #Increment counter
-        presetCounter = presetCounter + 1
+    ##Add to preset add to group file
+    #Open file
+    filePath = battleDPFolder+"functions/menu/load/host/preset/addgroup.mcfunction"
+    lbFile = open(filePath, "a")
+    #Write data to add to group
+    lbFile.write("userconfiggroup ADD lem.base:host_preset lem.battle:preset_map_enabled_"+modID+"\n")
+    #Close file
+    lbFile.close
+    ##Add to preset remove config file
+    #Open file
+    filePath = battleDPFolder+"functions/menu/load/host/preset/removeconfig.mcfunction"
+    lbFile = open(filePath, "a")
+    #Write data to remove from config
+    lbFile.write("userconfig @s remove lem.battle:preset_map_enabled_"+modID+"\n")
+    #Close file
+    lbFile.close
+    ##Add to preset set config file
+    #Open file
+    filePath = battleDPFolder+"functions/menu/load/host/preset/save/setconfig.mcfunction"
+    lbFile = open(filePath, "a")
+    #Write data to save to config
+    lbFile.write("execute if score #"+modID+" lem.setenablemap matches 1 run userconfig @s set lem.battle:preset_map_enabled_"+modID+" true\nexecute if score #"+modID+" lem.setenablemap matches 0 run userconfig @s set lem.battle:preset_map_enabled_"+modID+" false\n")
+    #Close file
+    lbFile.close
     ##Add to preset load file
-    #Set counter back to 1
-    presetCounter = 1
-    while presetCounter <= 10:
-        #Open file
-        filePath = battleDPFolder+"functions/menu/load/host/preset/load/"+str(presetCounter)+".mcfunction"
-        lbFile = open(filePath, "a")
-        #Write save data
-        lbFile.write("\nexecute if entity @s[advancements={lem.battle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=true}] run scoreboard players set #"+modID+" lem.setenablemap 0\nexecute if entity @s[advancements={lem.battle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=false}] run scoreboard players set #"+modID+" lem.setenablemap 1\nexecute if entity @s[advancements={lem.battle:menu/host/presets/"+str(presetCounter)+"/mods/enabled=true,lem.battle:menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+"=false}] run scoreboard players add #Store lem.mapcount 1")
-        #Close file
-        lbFile.close
-        #Increment counter
-        presetCounter = presetCounter + 1
-    ##Create preset savedata files
-    #Set counter back to one
-    presetCounter = 1
-    while presetCounter <= 10:
-        #Open file
-        filePath = battleDPFolder+"advancements/menu/host/presets/"+str(presetCounter)+"/map/enabled/"+modID+".json"
-        lbFile = open(filePath, "w")
-        #Write data
-        lbFile.write("{\n  \"criteria\": {\n    \"requirement\": {\n      \"trigger\": \"minecraft:impossible\"\n    }\n  }\n}\n")
-        #Close file
-        lbFile.close
-        #Increment counter
-        presetCounter = presetCounter + 1
+    #Open file
+    filePath = battleDPFolder+"functions/menu/load/host/preset/load/run.mcfunction"
+    lbFile = open(filePath, "a")
+    #Write data to load from config
+    lbFile.write("userconfig @s test lem.battle:preset_map_enabled_"+modID+" EQUAL true runCommand scoreboard players set #"+modID+" lem.setenablemap 1\nuserconfig @s test lem.battle:preset_map_enabled_"+modID+" EQUAL false runCommand scoreboard players set #"+modID+" lem.setenablemap 0\n")
+    #Close file
+    lbFile.close
     ##Set resource pack to load
     #Open file
     filePath = baseDPFolder+"functions/resource/load/id/game.mcfunction"

@@ -11,5 +11,11 @@ execute unless block ~ ~ ~ chest if entity @p[y_rotation=135..-134] run setblock
 #West
 execute unless block ~ ~ ~ chest if entity @p[y_rotation=-135..-44] run setblock ~ ~ ~ chest[facing=west]
 
+##Display icon
+function modtools:spawn/chest/icon/standard
+
+##Run global functions
+function modtools:spawn/chest/global
+
 ##Remove spawning entity
 kill @s

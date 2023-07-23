@@ -1,5 +1,5 @@
 ##Tag
-tag @s add relog
+tag @s add lem.mt.relog
 
 ##Load global actions
 function modtools:relog/setup/global

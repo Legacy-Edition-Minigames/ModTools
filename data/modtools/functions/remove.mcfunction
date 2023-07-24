@@ -4,6 +4,9 @@ execute if entity @e[distance=..1,tag=Chest] positioned ~ ~1.4 ~ run kill @e[dis
 #Remove block
 fill ~ ~ ~ ~ ~ ~ air replace chest
 
+##Remove spawnpoint
+execute if entity @e[distance=..1,tag=MixedTP] positioned ~ ~0.5 ~ run kill @e[distance=..1,tag=lem.mt.spawndisplay]
+
 ##Remove AEC
 kill @e[type=area_effect_cloud,distance=..1]
 

@@ -8,7 +8,7 @@ give @s ghast_spawn_egg{display:{Name:'{"text":"Spawn Powerful Chest","color":"d
 
 ##Spawnpoints
 #Random
-give @s ghast_spawn_egg{display:{Name:'{"text":"Create Random Spawnpoint","color":"dark_aqua","italic":false}'},lem.mt.editoritem:1,CustomModelData:13,EntityTag:{id:"minecraft:marker",Silent:1b,NoAI:1b,Tags:["spawnrandomtp"]}} 1
+give @s ghast_spawn_egg{display:{Name:'{"text":"Create Random Spawnpoint","color":"dark_aqua","italic":false}'},lem.mt.editoritem:1,CustomModelData:22,EntityTag:{id:"minecraft:marker",Silent:1b,NoAI:1b,Tags:["spawnrandomtp"]}} 1
 #Center
 give @s ghast_spawn_egg{display:{Name:'{"text":"Create Central Spawnpoint","color":"white","italic":false}'},lem.mt.editoritem:1,CustomModelData:2,EntityTag:{id:"minecraft:marker",Silent:1b,NoAI:1b,Tags:["spawncentertp"]}} 1
 

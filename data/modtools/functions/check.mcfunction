@@ -19,7 +19,7 @@ execute as @e[type=marker,tag=lem.mt.spawnborder+] at @s run function modtools:s
 execute as @e[type=marker,tag=lem.mt.spawnborder-] at @s run function modtools:spawn/border/negative
 
 ##Center
-execute as @e[type=marker,tag=lem.mt.spawncenter] at @s run function modtools:spawn/center
+execute as @e[type=marker,tag=lem.mt.spawncenter] at @s run function modtools:spawn/center/run
 
 ##Remove tool
 execute as @e[type=marker,tag=lem.mt.remove] at @s run function modtools:remove

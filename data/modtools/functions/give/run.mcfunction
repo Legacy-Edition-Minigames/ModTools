@@ -13,7 +13,7 @@ give @s ghast_spawn_egg{display:{Name:'{"text":"Create Random Spawnpoint","color
 give @s ghast_spawn_egg{display:{Name:'{"text":"Create Central Spawnpoint","color":"white","italic":false}'},lem.mt.editoritem:1,CustomModelData:2,EntityTag:{id:"minecraft:marker",Silent:1b,NoAI:1b,Tags:["lem.mt.spawncentertp"]}} 1
 
 ##Center
-give @s ghast_spawn_egg{display:{Name:'{"text":"Set Map Center","color":"dark_purple","italic":false}'},lem.mt.editoritem:1,CustomModelData:2,EntityTag:{id:"minecraft:marker",Silent:1b,NoAI:1b,Tags:["lem.mt.spawncenter"]}} 1
+give @s ghast_spawn_egg{display:{Name:'{"text":"Set Map Center","color":"dark_purple","italic":false}'},lem.mt.editoritem:1,CustomModelData:28,EntityTag:{id:"minecraft:marker",Silent:1b,NoAI:1b,Tags:["lem.mt.spawncenter"]}} 1
 
 ##Borders
 #Positive

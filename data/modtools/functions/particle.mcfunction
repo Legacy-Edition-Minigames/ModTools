@@ -19,4 +19,4 @@ execute at @e[type=area_effect_cloud,tag=Border-] run particle spore_blossom_air
 execute at @e[type=area_effect_cloud,tag=Border+] run particle crimson_spore ~ ~0.3 ~ 0.125 0.125 0.125 0 4 normal @a
 
 ##Center
-execute at @e[type=area_effect_cloud,tag=MapCenter] run particle reverse_portal ~ ~0.3 ~ 0.125 0.125 0.125 0 4 normal @a
+execute at @e[type=area_effect_cloud,tag=MapCenter] run particle reverse_portal ~ ~0.3 ~ 0.125 0.125 0.125 0 4 normal @a[tag=lem.mt.debug]

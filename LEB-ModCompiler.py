@@ -47,7 +47,7 @@ def load_mod_config():
 def rm_unused(directory):
     ##Remove unused data
     #Delete files and folders
-    list=["advancements","DIM1","DIM-1","datapacks","dimensions","playerdata","scripts","stats","icon.png","level.dat","level.dat_old","session.lock"]
+    list=["advancements","DIM1","DIM-1","datapacks","data","dimensions","playerdata","scripts","stats","icon.png","level.dat","level.dat_old","session.lock"]
     for item in list:
         del_item(directory+"/"+item)
 
@@ -65,16 +65,28 @@ def compile_mod():
     if modconfig['hassmall']:
         print("Cleaning up unused files for Small map type")
         rm_unused(directory+"/world/small")
+        if not modconfig['villagers']:
+            print("Cleaning up unused files for villager for Small map type")
+            del_item(directory+"/world/small/poi")
     if modconfig['haslarge']:
         print("Cleaning up unused files for Large map type")
         rm_unused(directory+"/world/large")
+        if not modconfig['villagers']:
+            print("Cleaning up unused files for villager for Large map type")
+            del_item(directory+"/world/large/poi")
     if modconfig['haslargeplus']:
         print("Cleaning up unused files for Large+ map type")
         rm_unused(directory+"/world/largeplus")
+        if not modconfig['villagers']:
+            print("Cleaning up unused files for villager for Large+ map type")
+            del_item(directory+"/world/largeplus/poi")
     if modconfig['hasremastered']:
         print("Cleaning up unused files for Remastered map type")
         rm_unused(directory+"/world/remastered")
-
+        if not modconfig['villagers']:
+            print("Cleaning up unused files for villager for Remastered map type")
+            del_item(directory+"/world/remastered/poi")
+  
     ##Change directory to temp folder
     os.chdir(directory)
 

@@ -34,13 +34,13 @@ def loadmodconfig():
 def replaceInFile(filePath,stringToReplace,replaceWith):
     ##Open file and replace text
     #Open file for reading
-    lbFile = open(filePath, "r")
+    lbFile = open(filePath, "r", encoding="utf8")
     #Read data
     fileContents = lbFile.read()
     #Replace the text
     fileContents = fileContents.replace(stringToReplace, replaceWith)
     #Open file for writing
-    lbFile = open(filePath, "w")
+    lbFile = open(filePath, "w", encoding="utf8")
     #Write new file
     lbFile.write(fileContents)
     #Close file

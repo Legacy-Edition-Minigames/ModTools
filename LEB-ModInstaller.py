@@ -34,13 +34,13 @@ def loadmodconfig():
 def replaceInFile(filePath,stringToReplace,replaceWith):
     ##Open file and replace text
     #Open file for reading
-    lbFile = open(filePath, "r")
+    lbFile = open(filePath, "r", encoding="utf8")
     #Read data
     fileContents = lbFile.read()
     #Replace the text
     fileContents = fileContents.replace(stringToReplace, replaceWith)
     #Open file for writing
-    lbFile = open(filePath, "w")
+    lbFile = open(filePath, "w", encoding="utf8")
     #Write new file
     lbFile.write(fileContents)
     #Close file
@@ -70,13 +70,13 @@ def injectcode():
     ##Get map ID
     #Open maprandom file
     filePath = "world/datapacks/lem.battle/data/lem.base/loot_tables/maprandom.json"
-    with open(filePath, "r") as lbFile:
+    with open(filePath, "r", encoding="utf8") as lbFile:
         loot_table = json.load(lbFile)
     #Get Map ID from file and add 1 to it
     maxMap = loot_table["pools"][0]["rolls"]["max"] + 1
     #Save to file
     loot_table["pools"][0]["rolls"]["max"] = maxMap
-    with open(filePath, "w") as lbFile:
+    with open(filePath, "w", encoding="utf8") as lbFile:
         json.dump(loot_table, lbFile)
     print("MapID: "+str(maxMap))
     #Set variable for the map id without the vanilla map count
@@ -134,7 +134,7 @@ def injectcode():
     ##Allow map to be detected from voting
     #Open file
     filePath = battleDPFolder+"functions/mapdecider/findhighest.mcfunction"
-    lbFile = open(filePath, "a")
+    lbFile = open(filePath, "a", encoding="utf8")
     #Write header
     lbFile.write("\n#"+str(modconfig['name']))
     #Add code for finding the vote
@@ -189,7 +189,7 @@ def injectcode():
     ##Allow users to vote for the map
     #Open file
     filePath = baseDPFolder+"functions/mapdecider/vote/check/mods.mcfunction"
-    lbFile = open(filePath, "a")
+    lbFile = open(filePath, "a", encoding="utf8")
     #Write header
     lbFile.write("\n##add 1 to "+str(modconfig['name'])+"'s vote count if voted for")
     #If the user voted already
@@ -201,7 +201,7 @@ def injectcode():
     ##Load the map into the sidebar if enabled
     #Open file
     filePath = baseDPFolder+"functions/mapdecider/vote/load.mcfunction"
-    lbFile = open(filePath, "a")
+    lbFile = open(filePath, "a", encoding="utf8")
     #Write header
     lbFile.write("\n#"+str(modconfig['name']))
     #Write code to load to sidebar
@@ -211,7 +211,7 @@ def injectcode():
     ##Remove map from vote if another map is voted for
     #Open file
     filePath = battleDPFolder+"functions/mapdecider/vote/rmoldvote.mcfunction"
-    lbFile = open(filePath, "a")
+    lbFile = open(filePath, "a", encoding="utf8")
     #Write code to remove vote
     lbFile.write("\n##Remove "+str(modconfig['name'])+"map vote\nexecute if entity @s[tag=vote"+modID+"] run scoreboard players remove §a⚒:"+modnameSpaceless+" lem.mapvote 1")
     #Close file
@@ -227,7 +227,7 @@ def injectcode():
     ##Create file to execute when map is voted for
     #Create file
     filePath = baseDPFolder+"functions/mapdecider/vote/add/"+modID+".mcfunction"
-    lbFile = open(filePath, "w")
+    lbFile = open(filePath, "w", encoding="utf8")
     #Write code to add the vote
     lbFile.write("##Add vote\nscoreboard players add §a⚒:"+modnameSpaceless+" lem.mapvote 1\n\n##Run global vote commands\nfunction lem.base:mapdecider/vote/add/global\n\n##Mark as voted\ntag @s add vote"+modID)
     #Close file
@@ -343,7 +343,7 @@ def injectcode():
     ##Add map to the GUI to enable/disable maps
     #Open file
     filePath = baseDPFolder+"functions/menu/load/host/mods/maps/list/"+str(pageCount)+".mcfunction"
-    lbFile = open(filePath, "a")
+    lbFile = open(filePath, "a", encoding="utf8")
     #Write code to display the button
     maxMapEnable = maxMap + 3000
     maxMapDisable = maxMap + 4000

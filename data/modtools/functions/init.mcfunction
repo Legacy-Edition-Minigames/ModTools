@@ -5,4 +5,4 @@ function modtools:install
 function modtools:start
 
 ##Notify debug users the datapack has loaded
-tellraw @a[tag=debug] ["",{"text":"ModTools datapack loaded.","color":"green"}]
+tellraw @a[tag=lem.mt.debug] ["",{"text":"ModTools datapack loaded.","color":"green"}]

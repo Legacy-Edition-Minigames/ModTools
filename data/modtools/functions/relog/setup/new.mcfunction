@@ -4,4 +4,4 @@ tag @s add lem.mt.relog
 ##Load global actions
 function modtools:relog/setup/global
 
-tellraw @s[tag=debug] "joined as new user"
+tellraw @s[tag=lem.mt.debug] "joined as new user"

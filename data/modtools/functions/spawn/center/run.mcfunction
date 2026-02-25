@@ -5,7 +5,10 @@ kill @e[type=area_effect_cloud,tag=MapCenter]
 kill @e[type=item_display,tag=lem.mt.center]
 
 ##Summon AEC
-execute align y run summon area_effect_cloud ~ ~ ~ {Duration:2147483647,Tags:["MapCenter"]}
+execute align y run summon area_effect_cloud ~ ~ ~ {Duration:2147483647,Tags:["lem.mapentity","lem.mt.needid","MapCenter"]}
+
+##Set ID
+execute as @e[tag=lem.mt.needid] run function modtools:spawn/id
 
 ##Display center object
 function modtools:spawn/center/display

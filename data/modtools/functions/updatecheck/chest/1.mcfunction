@@ -1,3 +1,9 @@
+##Set ID
+function modtools:spawn/id
+
+##Give Map Entity tag
+tag @s add lem.mapentity
+
 ##Display icon
 #Standard
 execute if entity @s[tag=StandardChest] run function modtools:spawn/chest/icon/standard

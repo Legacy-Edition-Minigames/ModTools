@@ -1,3 +1,9 @@
+##Set ID
+function modtools:spawn/id
+
+##Give Map Entity tag
+tag @s add lem.mapentity
+
 ##Display fake player
 #Central
 execute if entity @s[tag=CenterTP] run function modtools:spawn/spawnpoint/display/center

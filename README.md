@@ -1,7 +1,7 @@
 # LEM-ModTools
-Custom content creation & installation tool for LEM
+Custom content creation & installation tool for LEM 1.0
 
-When using the datapack, please use 1.18.2 or above
+When using the datapack, please use 1.20.4
 
 For more information on how to use this, please view the [documentation](https://github.com/Legacy-Edition-Minigames/ModTools/wiki)!
 

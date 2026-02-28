@@ -20,3 +20,6 @@ execute as @s unless score @s lem.mt.pid matches 1.. store result score @s lem.m
 
 ##Give items
 function modtools:give/check
+
+##Check for invalid borders
+function modtools:spawn/border/check

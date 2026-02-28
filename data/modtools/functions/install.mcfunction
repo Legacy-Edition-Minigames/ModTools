@@ -33,6 +33,9 @@ scoreboard objectives add lem.mt.remove.plist dummy
 ##Object IDs
 scoreboard objectives add lem.mt.id dummy
 
+##Border positions
+scoreboard objectives add lem.mt.yvalue dummy
+
 ##Green display
 team add lem.mt.green
 team modify lem.mt.green color green

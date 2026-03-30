@@ -47,7 +47,7 @@ def load_mod_config():
 def rm_unused(directory):
     ##Remove unused data
     #Delete files and folders
-    list=["advancements","DIM1","DIM-1","datapacks","dimensions","playerdata","scripts","stats","icon.png","level.dat","level.dat_old","session.lock"]
+    list=["advancements","DIM1","DIM-1","datapacks","dimensions","playerdata","scripts","stats","icon.png","level.dat","level.dat_old","session.lock","resources.zip"]
     for item in list:
         del_item(directory+"/"+item)
 
